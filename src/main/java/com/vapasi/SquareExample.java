@@ -15,4 +15,10 @@ public class SquareExample {
             System.out.println("this is a rectangle");
 
     }
+    public static void getAbsoluteValue()
+    {
+        Scanner sc=new Scanner(System.in);
+        System.out.println("enter a number");
+        int i=sc.nextInt();
+    }
 }
