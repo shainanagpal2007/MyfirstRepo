@@ -12,6 +12,9 @@ public class DataTypeAssignement {
        MultiplyNumbers();
         AddingIntanddouble();
         FindSquare();
+        Areaandperimeter();
+        ConvertFarehnitetoCelcius();
+
     }
 public static void printvalues()
 {
@@ -76,4 +79,23 @@ public static void AreaOfRectangle()
         double number1=sc.nextDouble();
         System.out.println("square of the number is " +(number1*number1));
     }
-}ß
+
+    //use of operators
+    public static void Areaandperimeter()
+    {
+        double length=5;
+        double breadth=7;
+        double num=10;
+        System.out.println("Area of rectangle is " + (length*breadth) +" Perimeter of rectangle is " + (2*(length+breadth)));
+        System.out.println("Perimeter of triangle is " + (length+breadth+num));
+
+    }
+    public static void ConvertFarehnitetoCelcius()
+    {
+        Scanner sc =new Scanner(System.in);
+        System.out.println("Enter temperature in farenhite");
+        double farenhite=sc.nextDouble();
+        double celsius=(farenhite-32)*(0.556);
+        System.out.println("Temperature in celsius is " + celsius);
+    }
+}
