@@ -4,7 +4,7 @@ import com.vapasi.inheritance.Computer;
 
 public class Laptop extends Computer {
 
-
+Laptop(){}
     public Laptop(String name, double price, String processor, String ram, String harddrive) {
         super(name, price, processor, ram, harddrive);
     }
