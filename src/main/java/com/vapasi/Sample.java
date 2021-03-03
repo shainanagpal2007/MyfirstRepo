@@ -14,4 +14,5 @@ public class Sample {
         System.out.print(name);
 
     }
+
 }

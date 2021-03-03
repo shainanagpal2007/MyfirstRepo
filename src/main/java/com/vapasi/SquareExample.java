@@ -13,6 +13,13 @@ public class SquareExample {
             System.out.println("this is a square");
         else
             System.out.println("this is a rectangle");
-
+        getAbsoluteValue();
     }
+    public static void getAbsoluteValue() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("enter a number");
+        int i = sc.nextInt();
+        System.out.println("absolute of this number is " +Math.abs(i));
+    }
+
 }
