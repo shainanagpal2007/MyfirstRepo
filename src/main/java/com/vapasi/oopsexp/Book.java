@@ -1,51 +1,56 @@
-package com.vapasi.inheritance;
+package com.vapasi.oopsexp;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 
 public class Book {
     public String title;
     public String author;
     public double price;
+    public Integer studentid;
     int pages;
-    public static int numberofbooks;
     //constructor
     public Book() {
-        numberofbooks++;
+
     }
+    Scanner sc=new Scanner(System.in);
     //parametrized constructor
    public Book(String title, String author, double priceofbook) {
         this.title = title;
         this.author = author;
         this.price = priceofbook;
-        numberofbooks++;
     }
-    public int getPages() {
-        return pages;
-    }
-    public void setPages(int pages) {
-        this.pages = pages;
-    }
+
     public String getTitle() {
         return title;
 
     }
-
     public String getAuthor() {
         return author;
     }
-
     public double getPrice() {
         return price;
     }
-
     public String setTitle(String newTitle) {
-       // numberofbooks = numberofbooks + 1;
         title = newTitle;
         return title;
     }
-
     public String setAuthor(String newauthor) {
-        //numberofbooks = numberofbooks + 1;
         author = newauthor;
         return author;
+    }
+    public Boolean isRented()
+    {
+        return studentid!=null;
+    }
+    public void checkout(Integer studentid)
+    {
+        this.studentid=studentid;
+    }
+    public void checkin()
+    {
+    this.studentid=null;
     }
 
 }

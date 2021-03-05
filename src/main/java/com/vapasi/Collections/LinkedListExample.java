@@ -1,6 +1,6 @@
 package com.vapasi.Collections;
 
-import com.vapasi.inheritance.Book;
+import com.vapasi.oopsexp.Book;
 //import com.vapasi.inheritance.Laptop;
 
 import java.util.*;
@@ -28,10 +28,10 @@ public class LinkedListExample {
 
 
         //Store book in map
-        Map<String,Book> booksmap=new HashMap<>();
-        booksmap.put("Java",new Book("java","shaina",100));
-        booksmap.put("C#",new Book("c#","shaina",200));
-        booksmap.put("C",new Book("c Fundamentals","shaina",160));
+        /*Map<String,Book> booksmap=new HashMap<>();
+        booksmap.put("Java",new Book("java","shaina",100,false));
+        booksmap.put("C#",new Book("c#","shaina",200,true));
+        booksmap.put("C",new Book("c Fundamentals","shaina",160,false));
         System.out.println("Enter book name");
         Scanner scanner = new Scanner(System.in);
         String name = scanner.next();
@@ -41,7 +41,7 @@ public class LinkedListExample {
             book.getAuthor();
         } else {
             System.out.println("Book does not exits.");
-        }
+        }*/
 
 
 
