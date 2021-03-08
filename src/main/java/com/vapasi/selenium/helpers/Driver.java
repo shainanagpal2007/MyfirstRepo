@@ -27,6 +27,10 @@ public class Driver {
         driver.close();
     }
 
+    public static void clearCookies(){
+        driver.manage().deleteAllCookies();
+    }
+
     public static WebDriverWait getWait() {
         return wait;
     }

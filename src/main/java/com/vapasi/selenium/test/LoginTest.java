@@ -8,13 +8,13 @@ public class LoginTest extends BaseTest {
     @Test(priority=1)
     public void testLogin() throws InterruptedException {
         loginPage.login("vikrant2mahajan@gmail.com", "simple2@");
-        Thread.sleep(2000);
         String successmsg = loginPage.getLoginmsg();
         Assert.assertTrue(successmsg.equals("Logged in successfully"));
     }
 
     @Test(priority=2)
-    public void TestLogout() {
+    public void TestLogout() throws InterruptedException{
+        loginPage.login("vikrant2mahajan@gmail.com", "simple2@");
         loginPage.logOut();
         Assert.assertTrue(loginPage.getLogOutMsg().equals("Signed out successfully."));
     }

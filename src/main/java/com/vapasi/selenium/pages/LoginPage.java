@@ -37,6 +37,10 @@ public class LoginPage extends BasePage {
         driver.findElement(USERNAME).sendKeys(name);
     }
 
+    public void waitForBasePageLoad() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(LOGINPAGELINK));
+    }
+
     public void waitForLoad() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("spree_user_email")));
     }
@@ -58,7 +62,9 @@ public class LoginPage extends BasePage {
     }
 
     public void login(String name, String pwd) throws InterruptedException {
-        driver.manage().deleteAllCookies();
+        Driver.clearCookies();
+        Driver.setUrl();
+        waitForBasePageLoad();
         clickLoginLink();
         waitForLoad();
         this.setUsername(name);

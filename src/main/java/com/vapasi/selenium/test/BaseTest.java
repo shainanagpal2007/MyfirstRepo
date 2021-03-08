@@ -3,8 +3,8 @@ package com.vapasi.selenium.test;
 import com.vapasi.selenium.helpers.Driver;
 import com.vapasi.selenium.pages.HomePage;
 import com.vapasi.selenium.pages.LoginPage;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeTest;
 
 public class BaseTest {
     protected LoginPage loginPage;
@@ -14,13 +14,12 @@ public class BaseTest {
     public void init() {
         loginPage = new LoginPage();
         homePage = new HomePage();
-        Driver.setUrl();
+        Driver.clearCookies();
     }
 
-
-    @BeforeTest
-    public void setupTest() {
-        Driver.getDriver().manage().deleteAllCookies();
+    @AfterTest
+    public void close(){
+        Driver.close();
     }
 
 }
