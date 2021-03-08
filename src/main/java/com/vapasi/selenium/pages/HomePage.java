@@ -4,6 +4,7 @@ import com.vapasi.selenium.helpers.Driver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 
@@ -11,11 +12,16 @@ public class HomePage extends BasePage {
     private WebDriver driver;
     private WebElement element;
     public static final By SELECTCATEGORY = By.xpath("//a[@href='/t/mugs']");
-    public static final By SELECTFILTER = By.xpath("//ul[@class='list-group']");
+    public static final By SELECTFILTER = By.xpath("//ul[@class='list-group']//li");
     public static final By CATEGORYTITLE = By.className("taxon-title");
-    public static final By PRODUCTLIST = By.id("products");
+    public static final By PRODUCTLIST = By.id("#products>div");
+    public static final By ADDTOCARTBUTTON=By.id("add-to-cart-button");
+    public static final By PRODUCTPRICE=By.xpath("//span[@class='lead price selling']");
+    public static final By PRICEONCHECKOUT=By.className("lead text-primary cart-item-price");
+    public static final By EMPTYCARTBUTTON=By.xpath("//input[@value='Empty Cart']");
     String minprice = null;
     String maxprice = null;
+    public Double price = null;
 
     public HomePage() {
         this.driver = Driver.getDriver();
@@ -39,7 +45,7 @@ public class HomePage extends BasePage {
 
 
         element = driver.findElement(SELECTFILTER);
-        List<WebElement> elements = element.findElements(By.xpath("//ul[@class='list-group']//li"));
+        List<WebElement> elements = element.findElements(SELECTFILTER);
         for (int i = 0; i < elements.size(); i++) {
             if (elements.get(i).getText().equals(filter)) {
                 selectedfilter = elements.get(i).getText().toString();
@@ -52,7 +58,7 @@ public class HomePage extends BasePage {
 
     public String selectProduct() {
         String Productname = "Ruby on Rails Mug";
-        List<WebElement> elements = driver.findElements(By.cssSelector("#products>div"));
+        List<WebElement> elements = driver.findElements(PRODUCTLIST);
 
         for (WebElement webElement : elements) {
             if (webElement.getText().toString().contains(Productname)) {
@@ -67,7 +73,7 @@ public class HomePage extends BasePage {
         Boolean pricematched = null;
         List<WebElement> elements = driver.findElements(By.cssSelector("#products>div"));
         for (int i = 0; i < elements.size(); i++) {
-            Double price = null;
+
             price = Double.parseDouble(elements.get(i).getText().toString().split("\\$")[1]);
             if (price >= Double.parseDouble(minprice) && price <= Double.parseDouble(maxprice)) {
                 System.out.println("Valid price");
@@ -78,6 +84,23 @@ public class HomePage extends BasePage {
             }
         }
         return pricematched;
+    }
+    public Double addtoCart()
+    {
+        Double productprice=Double.parseDouble(driver.findElement(PRODUCTPRICE).getText().substring(1,4));
+        driver.findElement(ADDTOCARTBUTTON).isDisplayed();
+        driver.findElement(ADDTOCARTBUTTON).click();
+        return productprice;
+    }
+    public Double checkCart()
+    {
+        Double productprice=Double.parseDouble(driver.findElement(PRICEONCHECKOUT).getText().substring(1,4));
+        return productprice;
+    }
+    public void clearCart()
+    {
+        ExpectedConditions.presenceOfElementLocated(EMPTYCARTBUTTON);
+        driver.findElement(EMPTYCARTBUTTON).click();
     }
 
 }

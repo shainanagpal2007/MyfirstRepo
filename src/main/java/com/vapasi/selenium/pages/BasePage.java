@@ -11,13 +11,14 @@ public class BasePage extends Driver {
     public static By keywordtosearch= By.id("keywords");
     public static By searchbutton=By.xpath("//input[@type=\"submit\"]");
    // Scanner sc=new Scanner(System.in);
-    String keyword = "apache";
+    //String keyword = "apache";
+   String keyword = "Ruby on Rails Mug";
 
-    public void searchKeyword() throws InterruptedException {
+    public void searchKeyword()  {
         driver.findElement(keywordtosearch).clear();
         driver.findElement(keywordtosearch).sendKeys(keyword);
         driver.findElement(searchbutton).click();
-       // Thread.sleep(2000);
+
     }
     public Boolean verifySearchResult()
     {

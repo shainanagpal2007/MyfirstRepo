@@ -20,6 +20,8 @@ public class Driver {
 
     public static void setUrl() {
         driver.get("http://spree-vapasi.herokuapp.com");
+        wait = new WebDriverWait(driver, 6);
+
     }
     public void close() {
         driver.close();

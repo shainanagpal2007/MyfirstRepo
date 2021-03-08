@@ -1,5 +1,6 @@
 package com.vapasi.selenium.test;
 
+import com.vapasi.selenium.pages.HomePage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.openqa.selenium.support.PageFactory;
@@ -32,13 +33,28 @@ public class HomePageTest extends BaseTest {
     }
 
     @Test(priority = 5)
-    public void verifyproductselect() throws InterruptedException {
-
-        loginPage.login(username, password);
-        homePage.select();
-        String filter = "$10.00 - $15.00";
-        String selectedfiter = homePage.selectFilter(filter);
+    public void verifyproductselect()
+    {
+        basePage.searchKeyword();
         String prodselected=homePage.selectProduct();
         Assert.assertEquals(prodselected,selectedproduct);
+    }
+    @Test(priority = 6)
+    public void verifyAddtoCart() {
+        setUrl();
+        basePage.searchKeyword();
+        homePage.selectProduct();
+        Double Price=homePage.addtoCart();
+        Double Pricefinal= homePage.checkCart();
+        Assert.assertEquals(Price,Pricefinal);
+    }
+    @Test(priority = 7)
+    public void verifyClearCart()
+    {
+        setUrl();
+        basePage.searchKeyword();
+        homePage.selectProduct();
+        homePage.addtoCart();
+        homePage.clearCart();
     }
 }
