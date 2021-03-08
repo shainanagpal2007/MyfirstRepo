@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="MyfirstRepo"
+           tests="1"
+           failures="0"
+           errors="0"
+           skipped="0"
+           time="4.286">
+    <properties></properties>
+
+
+
+            <testcase
+                name="verifySelectfilter"
+                time="4.286"
+                classname="com.vapasi.selenium.test.HomePageTest">
+            </testcase>
+</testsuite>

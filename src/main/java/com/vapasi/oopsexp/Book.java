@@ -21,7 +21,6 @@ public class Book {
         this.author = author;
         this.price = priceofbook;
     }
-
     public String getTitle() {
         return title;
 
