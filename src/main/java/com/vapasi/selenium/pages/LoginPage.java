@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.PageFactory;
 
 public class LoginPage extends BasePage {
     public static final By LOGINPAGELINK = By.xpath("//a[@href='/login']");
@@ -20,7 +21,7 @@ public class LoginPage extends BasePage {
     private WebDriverWait wait;
 
     public LoginPage() {
-        this.driver = Driver.getDriver();
+        PageFactory.initElements(driver,this);
         this.wait = Driver.getWait();
     }
 
@@ -62,7 +63,9 @@ public class LoginPage extends BasePage {
     }
 
     public void login(String name, String pwd) throws InterruptedException {
+
         Driver.clearCookies();
+        Driver.getDriver();
         Driver.setUrl();
         waitForBasePageLoad();
         clickLoginLink();
@@ -71,6 +74,7 @@ public class LoginPage extends BasePage {
         this.setPassword(pwd);
         this.clickLogin();
         Thread.sleep(2000);
+
     }
 
     public void logOut() {

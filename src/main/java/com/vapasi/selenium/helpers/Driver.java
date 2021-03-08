@@ -20,7 +20,7 @@ public class Driver {
 
     public static void setUrl() {
         driver.get("http://spree-vapasi.herokuapp.com");
-        driver.manage().deleteAllCookies();
+
     }
 
     public static void close() {

@@ -50,29 +50,34 @@ public class HomePage extends BasePage {
         return selectedfilter;
     }
 
-    public void selectProduct() {
+    public String selectProduct() {
         String Productname = "Ruby on Rails Mug";
-        List<WebElement> elements = driver.findElements(By.id("products"));
+        List<WebElement> elements = driver.findElements(By.cssSelector("#products>div"));
 
         for (WebElement webElement : elements) {
             if (webElement.getText().toString().contains(Productname)) {
                 webElement.click();
+                Productname=webElement.findElement(By.className("product-title")).toString();
             }
-            //element.findElement(By.xpath("//span[@content='13.99']"))
         }
-        verifyPrice();
+        return Productname;
     }
 
-    public void verifyPrice() {
+    public Boolean verifyPrice() {
+        Boolean pricematched = null;
         List<WebElement> elements = driver.findElements(By.cssSelector("#products>div"));
         for (int i = 0; i < elements.size(); i++) {
             Double price = null;
             price = Double.parseDouble(elements.get(i).getText().toString().split("\\$")[1]);
             if (price >= Double.parseDouble(minprice) && price <= Double.parseDouble(maxprice)) {
                 System.out.println("Valid price");
-            } else
+                pricematched=true;
+            } else {
                 System.out.println("Product not in price range");
+                pricematched= false;
+            }
         }
+        return pricematched;
     }
 
 }

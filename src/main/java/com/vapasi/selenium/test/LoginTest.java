@@ -7,7 +7,7 @@ public class LoginTest extends BaseTest {
 
     @Test(priority=1)
     public void testLogin() throws InterruptedException {
-        loginPage.login("vikrant2mahajan@gmail.com", "simple2@");
+        loginPage.login("shainanagpal12111987@gmail.com", "vapasi1234");
         String successmsg = loginPage.getLoginmsg();
         Assert.assertTrue(successmsg.equals("Logged in successfully"));
     }
