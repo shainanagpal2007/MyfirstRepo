@@ -28,11 +28,19 @@ public class LoginPage extends BasePage {
 
     @FindBy(xpath = "//*[contains(text(),'Logged in successfully')]")
     WebElement LOGINMSG;
+    @FindBy(css="div[class='alert alert-notice']")
+    WebElement REGISTERSUCCESSMSG;
 
     @FindBy(xpath = "//*[contains(text(),'Signed out successfully.')]")
     WebElement LOGOUTMSG;
 
+    @FindBy(linkText="Create a new account")
+    WebElement CREATEACCOUNTLINK;
 
+    @FindBy(id="spree_user_password_confirmation")
+    WebElement COMFIRMPASSWORD;
+    @FindBy(css="input[class=\"btn btn-lg btn-success btn-block\"]")
+    WebElement CREATENEWACCOUNTBUTTON;
     public LoginPage() {
         super();
     }
@@ -44,7 +52,16 @@ public class LoginPage extends BasePage {
     public String getLogOutMsg() {
         return LOGOUTMSG.getText();
     }
-
+    public String registerAccount(String username,String passowrd) throws InterruptedException {
+        Thread.sleep(2000);
+        clickLoginLink();
+        CREATEACCOUNTLINK.click();
+        setUsername(username);
+        setPassword(passowrd);
+        COMFIRMPASSWORD.sendKeys(passowrd);
+        CREATENEWACCOUNTBUTTON.click();
+        return REGISTERSUCCESSMSG.toString();
+    }
 
     public void setUsername(String name) {
         USERNAME.sendKeys(name);

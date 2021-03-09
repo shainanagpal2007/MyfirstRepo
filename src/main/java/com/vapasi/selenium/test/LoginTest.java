@@ -5,9 +5,14 @@ import org.testng.annotations.Test;
 
 public class LoginTest extends BaseTest {
 
-    String username="shainanagpal12111987@gmail.com";
+    String username="test@gmail.com";
     String password="vapasi1234";
     @Test(priority=1)
+    public void createNewAccount() throws InterruptedException {
+        setUrl();
+        String successmsg=loginPage.registerAccount(username,password);
+        Assert.assertTrue(successmsg.equals("Welcome! You have signed up successfully."));
+    }
     public void testLogin() throws InterruptedException {
         loginPage.login(username, password);
         String successmsg = loginPage.getLoginmsg();
