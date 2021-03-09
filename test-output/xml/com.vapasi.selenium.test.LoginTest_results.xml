@@ -4,19 +4,19 @@
            failures="0"
            errors="0"
            skipped="0"
-           time="11.401">
+           time="11.644">
     <properties></properties>
 
 
 
             <testcase
                 name="TestLogout"
-                time="5.209"
+                time="6.377"
                 classname="com.vapasi.selenium.test.LoginTest">
             </testcase>
             <testcase
                 name="testLogin"
-                time="6.192"
+                time="5.267"
                 classname="com.vapasi.selenium.test.LoginTest">
             </testcase>
 </testsuite>

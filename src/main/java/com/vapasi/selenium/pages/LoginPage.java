@@ -1,65 +1,77 @@
 package com.vapasi.selenium.pages;
 
 import com.vapasi.selenium.helpers.Driver;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.openqa.selenium.support.PageFactory;
 
 public class LoginPage extends BasePage {
-    public static final By LOGINPAGELINK = By.xpath("//a[@href='/login']");
-    public static final By USERNAME = By.id("spree_user_email");
-    public static final By PASSWORD = By.cssSelector("input[type=\"password\"]");
-    public static final By LOGINBUTTON = By.xpath("//input[@value='Login']");
-    public static final By LINKTOLOGIN = By.id("link-to-login");
-    public static final By LOGOUTBUTTON = By.cssSelector("a[href=\"/logout\"]");
-    public static final By LOGINMSG = By.xpath("//*[contains(text(),'Logged in successfully')]");
-    public static final By LOGOUTMSG = By.xpath("//*[contains(text(),'Signed out successfully.')]");
+    // @FindBy(xpath="//a[@href='/login']")
+    // WebElement LOGINBUTTON;
+    @FindBy(xpath = "//a[@href='/login']")
+    WebElement LOGINPAGELINK;
 
-    private WebDriver driver;
-    private WebDriverWait wait;
+    @FindBy(id = "spree_user_email")
+    WebElement USERNAME;
+
+    @FindBy(css = "input[type=\"password\"]")
+    WebElement PASSWORD;
+
+    @FindBy(xpath = "//input[@value='Login']")
+    WebElement LOGINBUTTON;
+
+    @FindBy(id = "link-to-login")
+    WebElement LINKTOLOGIN;
+
+    @FindBy(css = "a[href=\"/logout\"]")
+    WebElement LOGOUTBUTTON;
+
+    @FindBy(xpath = "//*[contains(text(),'Logged in successfully')]")
+    WebElement LOGINMSG;
+
+    @FindBy(xpath = "//*[contains(text(),'Signed out successfully.')]")
+    WebElement LOGOUTMSG;
+
 
     public LoginPage() {
-        PageFactory.initElements(driver,this);
-        this.wait = Driver.getWait();
+        super();
     }
 
     public String getLoginmsg() {
-        return driver.findElement(LOGINMSG).getText();
+        return LOGINMSG.getText();
     }
 
     public String getLogOutMsg() {
-        return driver.findElement(LOGOUTMSG).getText();
+        return LOGOUTMSG.getText();
     }
 
 
     public void setUsername(String name) {
-        driver.findElement(USERNAME).sendKeys(name);
+        USERNAME.sendKeys(name);
     }
 
     public void waitForBasePageLoad() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(LOGINPAGELINK));
+        wait.until(ExpectedConditions.visibilityOf(LOGINPAGELINK));
     }
 
     public void waitForLoad() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("spree_user_email")));
+        wait.until(ExpectedConditions.visibilityOf(LOGINPAGELINK));
     }
 
     public void waitForlogout() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(LOGOUTBUTTON));
+        wait.until(ExpectedConditions.visibilityOf(LOGOUTBUTTON));
     }
 
     public void setPassword(String pwd) {
-        driver.findElement(PASSWORD).sendKeys(pwd);
+        PASSWORD.sendKeys(pwd);
     }
 
     public void clickLogin() {
-        driver.findElement(LOGINBUTTON).click();
+        LOGINBUTTON.click();
     }
 
     public void clickLoginLink() {
-        driver.findElement(LINKTOLOGIN).click();
+        LINKTOLOGIN.click();
     }
 
     public void login(String name, String pwd) throws InterruptedException {
@@ -79,7 +91,7 @@ public class LoginPage extends BasePage {
 
     public void logOut() {
         waitForlogout();
-        driver.findElement(LOGOUTBUTTON).click();
+        LOGOUTBUTTON.click();
     }
 
 }

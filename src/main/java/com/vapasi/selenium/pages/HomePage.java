@@ -1,69 +1,87 @@
 package com.vapasi.selenium.pages;
 
-import com.vapasi.selenium.helpers.Driver;
+import net.bytebuddy.pool.TypePool;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 
 public class HomePage extends BasePage {
-    private WebDriver driver;
+
     private WebElement element;
-    public static final By SELECTCATEGORY = By.xpath("//a[@href='/t/mugs']");
-    public static final By SELECTFILTER = By.xpath("//ul[@class='list-group']//li");
-    public static final By CATEGORYTITLE = By.className("taxon-title");
-    public static final By PRODUCTLIST = By.id("#products>div");
-    public static final By ADDTOCARTBUTTON=By.id("add-to-cart-button");
-    public static final By PRODUCTPRICE=By.xpath("//span[@class='lead price selling']");
-    public static final By PRICEONCHECKOUT=By.className("lead text-primary cart-item-price");
-    public static final By EMPTYCARTBUTTON=By.xpath("//input[@value='Empty Cart']");
+    public static By keywordtosearch = By.id("keywords");
+    public static By searchbutton = By.xpath("//input[@type=\"submit\"]");
+
+    String keyword = "Ruby on Rails Mug";
+
+    @FindBy(xpath = "//a[@href='/t/mugs']")
+    WebElement SELECTCATEGORY;
+
+    @FindBy(xpath = "//ul[@class='list-group']//li")
+    List<WebElement> SELECTFILTER;
+
+    @FindBy(className = "taxon-title")
+    WebElement CATEGORYTITLE;
+
+    @FindBy(css = "#products>div")
+    List<WebElement> PRODUCTLIST;
+
+    @FindBy(id = "add-to-cart-button")
+    WebElement ADDTOCARTBUTTON;
+
+    @FindBy(xpath = "//span[@class='lead price selling']")
+    WebElement PRODUCTPRICE;
+
+    @FindBy(className = "lead text-primary cart-item-price")
+    WebElement PRICEONCHECKOUT;
+
+    @FindBy(xpath = "//input[@value='Empty Cart']")
+    WebElement EMPTYCARTBUTTON;
+    @FindBy(css="input[class='btn btn-primary']")
+    WebElement SearchFilterButton;
+
+    By PRODUCTTITLE=By.className("product-title");
+
     String minprice = null;
     String maxprice = null;
     public Double price = null;
 
     public HomePage() {
-        this.driver = Driver.getDriver();
+        super();
     }
 
-    public void setSelectcategory(By selectcategory) {
-        driver.findElement(selectcategory).click();
+    public void setCategory() throws InterruptedException {
+        ExpectedConditions.visibilityOf(SELECTCATEGORY);
+        SELECTCATEGORY.click();
+        Thread.sleep(2000);
     }
 
     public String getTitle() {
-        return driver.findElement(CATEGORYTITLE).getText();
-    }
-
-
-    public void select() {
-        setSelectcategory(SELECTCATEGORY);
+        return CATEGORYTITLE.getText();
     }
 
     public String selectFilter(String filter) {
         String selectedfilter = null;
-
-
-        element = driver.findElement(SELECTFILTER);
-        List<WebElement> elements = element.findElements(SELECTFILTER);
-        for (int i = 0; i < elements.size(); i++) {
-            if (elements.get(i).getText().equals(filter)) {
-                selectedfilter = elements.get(i).getText().toString();
-                minprice = elements.get(i).getText().substring(1, 5);
-                maxprice = elements.get(i).getText().substring(10, 15);
+        for (int i = 0; i < SELECTFILTER.size(); i++) {
+            if (SELECTFILTER.get(i).getText().equals(filter)) {
+                selectedfilter = SELECTFILTER.get(i).getText().toString();
+                minprice = SELECTFILTER.get(i).getText().substring(1, 5);
+                maxprice = SELECTFILTER.get(i).getText().substring(10, 15);
+                SELECTFILTER.get(i).click();
             }
         }
+        SearchFilterButton.click();
         return selectedfilter;
     }
 
     public String selectProduct() {
         String Productname = "Ruby on Rails Mug";
-        List<WebElement> elements = driver.findElements(PRODUCTLIST);
-
-        for (WebElement webElement : elements) {
+        for (WebElement webElement : PRODUCTLIST) {
             if (webElement.getText().toString().contains(Productname)) {
+                Productname = webElement.findElement(PRODUCTTITLE).toString();
                 webElement.click();
-                Productname=webElement.findElement(By.className("product-title")).toString();
             }
         }
         return Productname;
@@ -71,36 +89,49 @@ public class HomePage extends BasePage {
 
     public Boolean verifyPrice() {
         Boolean pricematched = null;
-        List<WebElement> elements = driver.findElements(By.cssSelector("#products>div"));
-        for (int i = 0; i < elements.size(); i++) {
-
-            price = Double.parseDouble(elements.get(i).getText().toString().split("\\$")[1]);
+        for (int i = 0; i < PRODUCTLIST.size(); i++) {
+            price = Double.parseDouble(PRODUCTLIST.get(i).getText().toString().split("\\$")[1]);
             if (price >= Double.parseDouble(minprice) && price <= Double.parseDouble(maxprice)) {
                 System.out.println("Valid price");
-                pricematched=true;
+                pricematched = true;
             } else {
                 System.out.println("Product not in price range");
-                pricematched= false;
+                pricematched = false;
             }
         }
         return pricematched;
     }
-    public Double addtoCart()
-    {
-        Double productprice=Double.parseDouble(driver.findElement(PRODUCTPRICE).getText().substring(1,4));
-        driver.findElement(ADDTOCARTBUTTON).isDisplayed();
-        driver.findElement(ADDTOCARTBUTTON).click();
+    public Double addtoCart() {
+        Double productprice = Double.parseDouble(PRODUCTPRICE.getText().substring(1, 4));
+        ADDTOCARTBUTTON.isDisplayed();
+        ADDTOCARTBUTTON.click();
         return productprice;
     }
-    public Double checkCart()
-    {
-        Double productprice=Double.parseDouble(driver.findElement(PRICEONCHECKOUT).getText().substring(1,4));
+
+    public Double checkCart() {
+        Double productprice = Double.parseDouble(PRICEONCHECKOUT.getText().substring(1, 4));
         return productprice;
     }
-    public void clearCart()
-    {
-        ExpectedConditions.presenceOfElementLocated(EMPTYCARTBUTTON);
-        driver.findElement(EMPTYCARTBUTTON).click();
+
+    public void clearCart() {
+        EMPTYCARTBUTTON.click();
+    }
+
+    public void searchKeyword() {
+        driver.findElement(keywordtosearch).clear();
+        driver.findElement(keywordtosearch).sendKeys(keyword);
+        driver.findElement(searchbutton).click();
+
+    }
+
+    public Boolean verifySearchResult() {
+        Boolean iskeywordpresent = null;
+        for (WebElement webElement : PRODUCTLIST) {
+            if (webElement.getText().contains(keyword)) {
+                iskeywordpresent = true;
+            }
+        }
+        return iskeywordpresent;
     }
 
 }

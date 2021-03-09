@@ -13,15 +13,12 @@ public class Driver {
         driver = new ChromeDriver();
         wait = new WebDriverWait(driver, 6);
     }
-
     public static WebDriver getDriver() {
         return driver;
     }
 
     public static void setUrl() {
         driver.get("http://spree-vapasi.herokuapp.com");
-        wait = new WebDriverWait(driver, 6);
-
     }
     public void close() {
         driver.close();
