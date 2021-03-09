@@ -34,15 +34,20 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//span[@class='lead price selling']")
     WebElement PRODUCTPRICE;
 
-    @FindBy(className = "lead text-primary cart-item-price")
+    @FindBy(css = "td[class='lead']")
     WebElement PRICEONCHECKOUT;
 
     @FindBy(xpath = "//input[@value='Empty Cart']")
     WebElement EMPTYCARTBUTTON;
     @FindBy(css="input[class='btn btn-primary']")
     WebElement SearchFilterButton;
+    @FindBy(css="div[class='alert alert-info']")
+    WebElement EMPTYCARTMSG;
+    @FindBy(id="checkout-link")
+    WebElement CHECKOUTBUTTON;
 
-    By PRODUCTTITLE=By.className("product-title");
+    @FindBy(id="summary-order-total")
+    WebElement TOTALPRICEONCHECKOUT;
 
     String minprice = null;
     String maxprice = null;
@@ -78,19 +83,19 @@ public class HomePage extends BasePage {
 
     public String selectProduct() {
         String Productname = "Ruby on Rails Mug";
-        for (WebElement webElement : PRODUCTLIST) {
-            if (webElement.getText().toString().contains(Productname)) {
-                Productname = webElement.findElement(PRODUCTTITLE).toString();
-                webElement.click();
+        for (int i = 0; i < PRODUCTLIST.size(); i++) {
+            if (PRODUCTLIST.get(i).getText().contains(Productname)) {
+                Productname = PRODUCTLIST.get(i).getText().toString().split("\\\n")[0];
+                System.out.println("Product selected " +Productname);
+                PRODUCTLIST.get(i).click();
             }
         }
         return Productname;
     }
-
     public Boolean verifyPrice() {
         Boolean pricematched = null;
         for (int i = 0; i < PRODUCTLIST.size(); i++) {
-            price = Double.parseDouble(PRODUCTLIST.get(i).getText().toString().split("\\$")[1]);
+            price = Double.parseDouble(PRODUCTLIST.get(i).getText().toString().split("\\\n$")[1]);
             if (price >= Double.parseDouble(minprice) && price <= Double.parseDouble(maxprice)) {
                 System.out.println("Valid price");
                 pricematched = true;
@@ -101,29 +106,37 @@ public class HomePage extends BasePage {
         }
         return pricematched;
     }
-    public Double addtoCart() {
-        Double productprice = Double.parseDouble(PRODUCTPRICE.getText().substring(1, 4));
+    public Double addtoCart() throws InterruptedException {
+        Thread.sleep(3000);
+        Double productprice = Double.parseDouble(PRODUCTPRICE.getText().substring(1,6));
         ADDTOCARTBUTTON.isDisplayed();
         ADDTOCARTBUTTON.click();
         return productprice;
     }
 
-    public Double checkCart() {
-        Double productprice = Double.parseDouble(PRICEONCHECKOUT.getText().substring(1, 4));
+    public Double checkCart() throws InterruptedException {
+        //Site behave flaky sometimes so adding some thread.sleep for now..
+        Thread.sleep(2000);
+        ExpectedConditions.visibilityOf(PRICEONCHECKOUT);
+        Double productprice = Double.parseDouble(PRICEONCHECKOUT.getText().substring(1,6));
         return productprice;
     }
-
-    public void clearCart() {
+    public Boolean clearCart() throws InterruptedException {
+    Thread.sleep(2000);
+    Boolean isEmpty;
         EMPTYCARTBUTTON.click();
+        if(EMPTYCARTMSG.getText().equals("Your cart is empty"))
+        {
+            isEmpty=true;
+        }else {isEmpty=false;}
+        return isEmpty;
     }
-
     public void searchKeyword() {
         driver.findElement(keywordtosearch).clear();
         driver.findElement(keywordtosearch).sendKeys(keyword);
         driver.findElement(searchbutton).click();
 
     }
-
     public Boolean verifySearchResult() {
         Boolean iskeywordpresent = null;
         for (WebElement webElement : PRODUCTLIST) {
@@ -132,6 +145,12 @@ public class HomePage extends BasePage {
             }
         }
         return iskeywordpresent;
+    }
+    public Double productcheckout() throws InterruptedException {
+        Thread.sleep(2000);
+        CHECKOUTBUTTON.click();
+        Double totallprice=Double.parseDouble(TOTALPRICEONCHECKOUT.getText().substring(1,6));
+        return totallprice;
     }
 
 }

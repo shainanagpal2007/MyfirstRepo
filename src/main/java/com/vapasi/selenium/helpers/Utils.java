@@ -24,11 +24,9 @@ public class Utils
         FileHandler.copy(src, testresultfile.getAbsoluteFile());
         String  filePath = testresultfile.toString();
         System.out.println(filePath);
-        Reporter.setEscapeHtml(false);
-        Reporter.log("<img src='../../screenshots/"+screenshotName+"' width='200'/>");
-
-        //("screenshots\" + scenario.getId().split(";")[0] + "\" + scenario.getName().replaceAll("\s", "") + "" + timeStamp + ".png");
-        //Reporter.log("<a href='"+ src.getAbsolutePath() + "'> <img src='"+ src.getAbsolutePath() + "' height='100' width='100'/> </a>");
+        String screenshot="<img src='../../screenshots/"+screenshotName+"' width='400'/>";
+        Reporter.getCurrentTestResult().setAttribute("Screenshot",screenshot);
+        Reporter.log(screenshot);
     }
 
 }

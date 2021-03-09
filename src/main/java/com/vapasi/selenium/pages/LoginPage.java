@@ -41,73 +41,39 @@ public class LoginPage extends BasePage {
     WebElement COMFIRMPASSWORD;
     @FindBy(css="input[class=\"btn btn-lg btn-success btn-block\"]")
     WebElement CREATENEWACCOUNTBUTTON;
+
     public LoginPage() {
         super();
     }
-
     public String getLoginmsg() {
         return LOGINMSG.getText();
     }
-
     public String getLogOutMsg() {
         return LOGOUTMSG.getText();
     }
     public String registerAccount(String username,String passowrd) throws InterruptedException {
         Thread.sleep(2000);
-        clickLoginLink();
+        wait.until(ExpectedConditions.visibilityOf(LOGINPAGELINK));
+        LINKTOLOGIN.click();
         CREATEACCOUNTLINK.click();
-        setUsername(username);
-        setPassword(passowrd);
+        USERNAME.sendKeys(username);
+        PASSWORD.sendKeys(passowrd);
         COMFIRMPASSWORD.sendKeys(passowrd);
         CREATENEWACCOUNTBUTTON.click();
-        return REGISTERSUCCESSMSG.toString();
-    }
-
-    public void setUsername(String name) {
-        USERNAME.sendKeys(name);
-    }
-
-    public void waitForBasePageLoad() {
-        wait.until(ExpectedConditions.visibilityOf(LOGINPAGELINK));
-    }
-
-    public void waitForLoad() {
-        wait.until(ExpectedConditions.visibilityOf(LOGINPAGELINK));
-    }
-
-    public void waitForlogout() {
-        wait.until(ExpectedConditions.visibilityOf(LOGOUTBUTTON));
-    }
-
-    public void setPassword(String pwd) {
-        PASSWORD.sendKeys(pwd);
-    }
-
-    public void clickLogin() {
-        LOGINBUTTON.click();
-    }
-
-    public void clickLoginLink() {
-        LINKTOLOGIN.click();
-    }
-
-    public void login(String name, String pwd) throws InterruptedException {
-
-        Driver.clearCookies();
-        Driver.getDriver();
-        Driver.setUrl();
-        waitForBasePageLoad();
-        clickLoginLink();
-        waitForLoad();
-        this.setUsername(name);
-        this.setPassword(pwd);
-        this.clickLogin();
         Thread.sleep(2000);
-
+        return REGISTERSUCCESSMSG.getText();
     }
-
+    public void login(String name, String pwd) throws InterruptedException {
+        Driver.setUrl();
+        wait.until(ExpectedConditions.visibilityOf(LOGINPAGELINK));
+        LINKTOLOGIN.click();
+        USERNAME.sendKeys(name);
+        PASSWORD.sendKeys(pwd);
+        LOGINBUTTON.click();
+        Thread.sleep(2000);
+    }
     public void logOut() {
-        waitForlogout();
+        wait.until(ExpectedConditions.visibilityOf(LOGOUTBUTTON));
         LOGOUTBUTTON.click();
     }
 

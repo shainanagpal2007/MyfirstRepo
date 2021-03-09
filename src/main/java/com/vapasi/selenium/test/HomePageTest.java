@@ -51,28 +51,39 @@ public class HomePageTest extends BaseTest{
         setUrl();
         homePage.searchKeyword();
         String prodselected=homePage.selectProduct();
-        Thread.sleep(3000);
         Assert.assertEquals(prodselected,selectedproduct);
-
     }
     @Test(priority = 6)
     public void verifyAddtoCart() throws InterruptedException {
         setUrl();
+        //searchkeyword method can be skipped
         homePage.searchKeyword();
         homePage.selectProduct();
         Double Price=homePage.addtoCart();
+        Thread.sleep(2000);
         Double Pricefinal= homePage.checkCart();
         Assert.assertEquals(Price,Pricefinal);
+        System.out.println(Price+" "+Pricefinal);
     }
 
     @Test(priority = 7)
-    public void verifyClearCart()
-    {
+    public void verifyClearCart() throws InterruptedException {
         setUrl();
+        //searchkeyword method can be skipped
+         homePage.searchKeyword();
+         homePage.selectProduct();
+         homePage.addtoCart();
+         Assert.assertTrue(homePage.clearCart());
+       // Assert.assertTrue();
+    }
+    @Test(priority = 8)
+    public void verifyCheckout() throws InterruptedException {   setUrl();
+        ////searchkeyword method can be skipped  adding it to make it independent test end to end
         homePage.searchKeyword();
         homePage.selectProduct();
         homePage.addtoCart();
-        homePage.clearCart();
-       // Assert.assertTrue();
+        Double Pricefinal= homePage.checkCart();
+        Double totalprice=homePage.productcheckout();
+        Assert.assertEquals(Pricefinal,totalprice);
     }
 }

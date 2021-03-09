@@ -9,6 +9,7 @@ public class Driver {
     protected static WebDriverWait wait;
 
     static {
+        System.setProperty("org.uncommons.reportng.escape-output", "false");
         System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver");
         driver = new ChromeDriver();
         wait = new WebDriverWait(driver, 6);
