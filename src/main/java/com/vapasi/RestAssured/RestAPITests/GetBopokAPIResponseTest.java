@@ -1,10 +1,10 @@
-package com.vapasi.RestAPITests;
-import com.vapasi.RestRequestModel.AddBookRequest;
-import com.vapasi.RestRequestModel.DeleteBookRequest;
-import com.vapasi.RestResponseModel.AddBookresponse;
-import com.vapasi.RestResponseModel.AddExistingBookResponse;
-import com.vapasi.RestResponseModel.DeleteBookResponse;
-import com.vapasi.RestResponseModel.GetBookResponse;
+package com.vapasi.RestAssured.RestAPITests;
+import com.vapasi.RestAssured.RestRequestModel.AddBookRequest;
+import com.vapasi.RestAssured.RestRequestModel.DeleteBookRequest;
+import com.vapasi.RestAssured.RestResponseModel.AddBookresponse;
+import com.vapasi.RestAssured.RestResponseModel.AddExistingBookResponse;
+import com.vapasi.RestAssured.RestResponseModel.DeleteBookResponse;
+import com.vapasi.RestAssured.RestResponseModel.GetBookResponse;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.testng.Assert;

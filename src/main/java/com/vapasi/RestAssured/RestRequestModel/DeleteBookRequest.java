@@ -1,4 +1,4 @@
-package com.vapasi.RestRequestModel;
+package com.vapasi.RestAssured.RestRequestModel;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

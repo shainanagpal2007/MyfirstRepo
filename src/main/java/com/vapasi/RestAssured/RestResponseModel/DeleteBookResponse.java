@@ -1,4 +1,4 @@
-package com.vapasi.RestResponseModel;
+package com.vapasi.RestAssured.RestResponseModel;
 
 public class DeleteBookResponse {
     private String msg;

@@ -12,6 +12,6 @@
             <testcase
                 name="verifyDeleteByAuthor"
                 time="1.237"
-                classname="com.vapasi.RestAPITests.GetBopokAPIResponseTest">
+                classname="com.vapasi.RestAssured.RestAPITests.GetBopokAPIResponseTest">
             </testcase>
 </testsuite>
