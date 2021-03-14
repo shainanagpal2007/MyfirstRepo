@@ -15,17 +15,14 @@ public class CarNumberArray {
         Random rnum=new Random();
         String[] arr = new String[totalnum];
         boolean[] isExist=new boolean[10000];
-        for(int i=0;i<totalnum;i++)
+        for(int i=0;i<totalnum;)
         {
             int num =rnum.nextInt(10000);
             if(!isExist[num])
             {
                 arr[i] = ("MH" + num);
                 isExist[num]=true;
-            }
-            else
-            {
-                i--;
+                i++;
             }
         }
         System.out.println("Car Numbers Generated = "+ Arrays.toString(arr));
