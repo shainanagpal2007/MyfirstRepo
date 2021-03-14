@@ -12,6 +12,6 @@
             <testcase
                 name="getBookAPIResponse"
                 time="0.925"
-                classname="com.vapasi.RestAssured.RestAPITests.GetBopokAPIResponseTest">
+                classname="com.vapasi.RestAssured.RestAPITests.BookAPITest">
             </testcase>
 </testsuite>
