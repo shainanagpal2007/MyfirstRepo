@@ -19,7 +19,10 @@ public class LoopExample {
        // int num = 5;
        // System.out.println("Factorial of " + num +" is " + findFactorial(num));
         //findGCD(20,30);
-        findHCF(4,16);
+        //findHCF(4,16);
+       // findArmstrongNumber(100,500);
+        //printAscii();
+        infiniteLoop();
 
     }
     public static void VerifyCase()
@@ -228,5 +231,33 @@ public class LoopExample {
              }
              System.out.println("HCF is" +num1);
          }
+         public static void findArmstrongNumber(int num1,int num2) {
+             for (int i = num1; i < num2; i++) {
+                 int check, rem, sum = 0;
+                 check = i;
+                 while (check != 0) {
+                     rem = check % 10;
+                     sum = sum + (rem * rem * rem);
+                     check = check / 10;
+                 }
+                 if (sum == i) {
+                     System.out.println("" + i + " is an Armstrong number.");
+                 }
+
+             }
+         }
+         public static void printAscii() {
+             for (int i = 0; i <= 255; i++) {
+                 System.out.println(" The ASCII value of " + (char)i + "  =  " + i);
+             }
+         }
+         public static void infiniteLoop()
+         {
+             for ( ; ; )
+             {
+                 System.out.println("infinite loop");
+             }
+         }
+
 
 }
