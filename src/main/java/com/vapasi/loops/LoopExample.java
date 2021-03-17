@@ -15,7 +15,12 @@ public class LoopExample {
         //MultiplicationTable();
         //PrimeNumbers();
         //Sumofnumbers();
-        ReducingFractions();
+        //ReducingFractions();
+       // int num = 5;
+       // System.out.println("Factorial of " + num +" is " + findFactorial(num));
+        //findGCD(20,30);
+        findHCF(4,16);
+
     }
     public static void VerifyCase()
     {
@@ -196,5 +201,32 @@ public class LoopExample {
             System.out.print("\n Output :\n");
             System.out.print(n3 + "/" + n4 + "\n\n" );
         }
+        public static int findFactorial(int n){
+            int fact = 1, i;
+            for (i=2; i<=n; i++)
+                fact *= i;
+            return fact;
+         }
+         public static void findGCD(int n1,int n2)
+         {
+             int gcd = 1;
+             for (int i = 1; i <= n1 && i <= n2; ++i) {
+                 if (n1 % i == 0 && n2 % i == 0)
+                     gcd = i;
+             }
+             System.out.println("GCD of " + n1 +" and " + n2 + " is " + gcd);
+         }
+         public static void findHCF(long num1,long num2)
+         {
+            // long hcf=1;
+             System.out.println("Find hcf of "+num1+ "and "+num2);
+             while (num2> 0)
+             {
+                 long temp = num2;
+                 num2= num1 % num2;
+                 num1 = temp;
+             }
+             System.out.println("HCF is" +num1);
+         }
 
 }
